@@ -1,6 +1,5 @@
 import sdk from "firebase-admin";
 import { config } from "../config";
-
 export const app = sdk.initializeApp({
   credential: sdk.credential.cert(config.firebase.serviceAccountKey),
 });
