@@ -15,6 +15,10 @@ app.get("/", (c) => {
   return c.json({ message: "Hello Notification Service!" });
 });
 
+app.get("/users", (c) => {
+  return c.json({ users: Object.fromEntries(fcmTokens) });
+});
+
 app.post("/register", async (c) => {
   const { token } = await c.req.json();
 
