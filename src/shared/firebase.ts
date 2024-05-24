@@ -17,18 +17,30 @@ export const sendNotification = async (
   payload: Notification,
   token: string
 ) => {
-  sdk.messaging().send({
-    ...payload,
+  const request = {
+    notification: {
+      ...payload.notification,
+    },
+    data: { ...payload.data },
     token,
-  });
+  };
+  console.log("Send notification request", request);
+
+  sdk.messaging().send(request);
 };
 
 export const sendNotifications = async (
   payload: Notification,
   tokens: string[]
 ) => {
-  sdk.messaging().sendEachForMulticast({
-    ...payload,
+  const request = {
+    notification: {
+      ...payload.notification,
+    },
+    data: { ...payload.data },
     tokens,
-  });
+  };
+
+  console.log("Send notifications request", request);
+  sdk.messaging().sendEachForMulticast(request);
 };
