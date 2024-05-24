@@ -4,30 +4,31 @@ export const app = sdk.initializeApp({
   credential: sdk.credential.cert(config.firebase.serviceAccountKey),
 });
 
+export type Notification = {
+  notification: {
+    title: string;
+    body: string;
+  };
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  data?: any;
+};
+
 export const sendNotification = async (
-  title: string,
-  message: string,
+  payload: Notification,
   token: string
 ) => {
   sdk.messaging().send({
+    ...payload,
     token,
-    notification: {
-      title,
-      body: message,
-    },
   });
 };
 
 export const sendNotifications = async (
-  title: string,
-  message: string,
+  payload: Notification,
   tokens: string[]
 ) => {
   sdk.messaging().sendEachForMulticast({
+    ...payload,
     tokens,
-    notification: {
-      title,
-      body: message,
-    },
   });
 };
